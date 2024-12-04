@@ -19,7 +19,7 @@ def task1(data_frame: DataFrame, mode: str = "w"):
 # Рассчитайте среднюю цену продукции для каждого продукта во всех магазинах и
 # сохраните результаты на второй странице Excel-файла.
 def task2(data_frame: DataFrame, mode: str = "w"):
-    average_price = df.groupby('Product')['Price'].mean()
+    average_price = data_frame.groupby('Product')['Price'].mean()
 
     with pd.ExcelWriter('sales_result.xlsx', mode=mode) as writer:
         average_price.to_excel(writer, sheet_name='task2')
@@ -29,7 +29,7 @@ def task2(data_frame: DataFrame, mode: str = "w"):
 # Найдите магазин, в котором было продано максимальное количество продукции за
 # весь период данных, и сохраните результаты на третьей странице Excel-файла.
 def task3(data_frame: DataFrame, mode: str = "w"):
-    total_quantity_by_store = df.groupby('Store')['Quantity'].sum()
+    total_quantity_by_store = data_frame.groupby('Store')['Quantity'].sum()
     index = total_quantity_by_store.idxmax()
     max_value = total_quantity_by_store.max()
 
@@ -53,7 +53,7 @@ def task4(data_frame: DataFrame, mode: str = "w"):
 # Рассчитайте 25-й, 50-й (медиана) и 75-й перцентили для столбца `Quantity` в данных и
 # отобразите их значения, а затем сохраните результаты на пятой странице Excel-файла.
 def task5(data_frame: DataFrame, mode: str = "w"):
-    percentiles = (df['Quantity'].quantile([0.25, 0.5, 0.75]))
+    percentiles = (data_frame['Quantity'].quantile([0.25, 0.5, 0.75]))
     new_df = pd.DataFrame({'Percentiles': ['25%%', '50%%', '75%%'],
                            'Quantity': percentiles.values})
 
